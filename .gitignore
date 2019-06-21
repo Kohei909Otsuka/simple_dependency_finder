@@ -1,1 +1,3 @@
 neo4j/data/
+vendor/bundle
+.bundle/
