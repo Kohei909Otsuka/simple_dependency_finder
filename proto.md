@@ -108,3 +108,19 @@ CREATE (from) -[:KNOWS]-> (to)
 ```
 
 ここまでできたので、あとはどうやってrubyでこのcsvをつくるか
+
+## 方針転換
+
+ここまでやってみてきづいたこと
+
+- neo4jをこのためだけに使うのは、重い。依存関係が増えるとユーザビリティも悪くなる。だったら検索ロジック自分で書く。
+- ParseとFilterの処理は、FilterをGoで書いて、Parseは各自特定のJSONを渡してよ、というほうがよさそう。
+  - Rubyのなかでも素のRubyとRailsでは依存関係の解析の仕方は違う
+  - RubyとJsなど、言語間も違う
+  - であれば、FilterがうけつけるJSONの形をintefaceにして、Parser側は各言語、各framework用に各自書いてもらえれば、シンプルで汎用的になる。
+  - テストも書きやすい
+
+動作イメージ
+
+(any parse program to parse code) | filter push
+(any parse program to parse diff) | filter fetch
