@@ -22,6 +22,29 @@ func uniq(org []int) []int {
 	return output
 }
 
+// ある整数n int[]をうけとって、それに依存しているm []intを返す関数
+// counter must be pointer to 0
+func recursive(nums []int, rdep map[int][]int, depth int, counter *int) []int {
+
+	output := make([]int, 0)
+
+	// 再帰処理の終了条件
+	if len(nums) == 0 {
+		return output
+	}
+
+	for _, v := range nums {
+		output = append(output, rdep[v]...)
+	}
+
+	*counter += 1
+	if *counter < depth || depth == 0 {
+		return append(output, recursive(output, rdep, depth, counter)...)
+	} else {
+		return output
+	}
+}
+
 // Original Dep is about who knows who
 // Reverse is Who is known by who
 func reverseDep(dep map[int][]int) map[int][]int {
@@ -30,19 +53,21 @@ func reverseDep(dep map[int][]int) map[int][]int {
 		for _, vv := range v {
 			output[vv] = append(output[vv], k)
 		}
+
+		if output[k] == nil {
+			output[k] = []int{}
+		}
 	}
 	return output
 }
 
-func sequalFinder(ms []*Module, rdep map[int][]int, diff []int) []int {
-	output := make([]int, 0)
-	output = append(output, diff...)
-	for _, v := range diff {
-		output = append(output, rdep[v]...)
-	}
+func sequalFinder(ms []*Module, rdep map[int][]int, diff []int, depth int) []int {
+	counter := 0
+	effected := recursive(diff, rdep, depth, &counter)
+	effected = append(effected, diff...) // 変更があったものは検索するまでもなく追加
 
 	// GoにはSetがないのでuniqしてsortして返す
-	uniq := uniq(output)
+	uniq := uniq(effected)
 	sort.Ints(uniq)
 	return uniq
 }
