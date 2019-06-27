@@ -1,6 +1,0 @@
-id,name,path
-1,User,user.rb
-2,Order,order.rb
-3,OrderItem,order_item.rb
-4,Item,item.rb
-5,Variant,variant.rb
