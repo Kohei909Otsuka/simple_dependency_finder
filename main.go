@@ -22,9 +22,18 @@ func uniq(org []int) []int {
 	return output
 }
 
+func includes(con []int, e int) bool {
+	for _, v := range con {
+		if v == e {
+			return true
+		}
+	}
+	return false
+}
+
 // ある整数n int[]をうけとって、それに依存しているm []intを返す関数
 // counter must be pointer to 0
-func recursive(nums []int, rdep map[int][]int, depth int, counter *int) []int {
+func recursive(nums, checked []int, rdep map[int][]int, depth int, counter *int) []int {
 
 	output := make([]int, 0)
 
@@ -34,12 +43,19 @@ func recursive(nums []int, rdep map[int][]int, depth int, counter *int) []int {
 	}
 
 	for _, v := range nums {
-		output = append(output, rdep[v]...)
+		// output = append(output, rdep[v]...)
+		for _, vv := range rdep[v] {
+			if includes(checked, vv) {
+				continue
+			}
+			checked = append(checked, vv)
+			output = append(output, vv)
+		}
 	}
 
 	*counter += 1
 	if *counter < depth || depth == 0 {
-		return append(output, recursive(output, rdep, depth, counter)...)
+		return append(output, recursive(output, checked, rdep, depth, counter)...)
 	} else {
 		return output
 	}
@@ -63,7 +79,8 @@ func reverseDep(dep map[int][]int) map[int][]int {
 
 func sequalFinder(ms []*Module, rdep map[int][]int, diff []int, depth int) []int {
 	counter := 0
-	effected := recursive(diff, rdep, depth, &counter)
+	checked := make([]int, 0)
+	effected := recursive(diff, checked, rdep, depth, &counter)
 	effected = append(effected, diff...) // 変更があったものは検索するまでもなく追加
 
 	// GoにはSetがないのでuniqしてsortして返す
