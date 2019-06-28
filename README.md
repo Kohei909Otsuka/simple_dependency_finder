@@ -15,7 +15,7 @@ sdf helps to do **4. Run test suits as little as possible**
 
 # Install
 
-TODO
+download executable for your platform from [Github Release](https://github.com/Kohei909Otsuka/simple_dependency_finder/releases).
 
 # How it works
 
