@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Order",
+    "path": "order.rb"
+  },
+  {
+    "id": 2,
+    "name": "OrderItem",
+    "path":  "order_item.rb"
+  },
+  {
+    "id": 3,
+    "name": "User",
+    "path": "user.rb"
+  },
+  {
+    "id": 4,
+    "name": "Item",
+    "path": "item.rb"
+  },
+  {
+    "id": 5,
+    "name": "CircularA",
+    "path": "circular_a.rb"
+  },
+  {
+    "id": 6,
+    "name": "CircularB",
+    "path": "circular_b.rb"
+  },
+  {
+    "id": 7,
+    "name": "DeepCircularA",
+    "path": "deep_circular_a.rb"
+  },
+  {
+    "id": 8,
+    "name": "DeepCircularB",
+    "path": "deep_circular_b.rb"
+  },
+  {
+    "id": 9,
+    "name": "DeepCircularC",
+    "path": "deep_circular_c.rb"
+  }
+]

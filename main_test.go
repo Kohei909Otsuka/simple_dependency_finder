@@ -112,7 +112,7 @@ func intSliceEqual(a, b []int) bool {
 
 func TestSequelFinder(t *testing.T) {
 	for _, v := range table {
-		actual := sequalFinder(modules, reverseDep(dep), v.diff, v.depth)
+		actual := sequalFinder(reverseDep(dep), v.diff, v.depth)
 		expected := v.expected
 		if !intSliceEqual(expected, actual) {
 			t.Errorf("expected %v, actual %v for %+v\n", expected, actual, v)
